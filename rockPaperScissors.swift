@@ -1,55 +1,57 @@
-func getUserChoice(choice: String) -> String {
-  if choice == "rock" || choice == "paper" || choice == "scissors"{
-  return choice
-} else {
-  return "choose rock, paper or scissors"
+func getUserChoice(userInput: String) -> String {
+  if userInput.lowercased() == "rock" || userInput.lowercased() == "paper" || userInput.lowercased() == "scissors" {
+    return userInput.lowercased()
+  } else {
+    return "You can only enter rock, paper, or scissors. Try again."
+  }
 }
-}
-
-var user = getUserChoice(choice: "paper")
 
 func getComputerChoice() -> String {
-  let randonNumber = Int.random(in: 0...2)
-
-  switch randonNumber {
-    case 0:
+  let randomNumber = Int.random(in: 1...3)
+  switch randomNumber {
+    case 1:
       return "rock"
-    case 1: 
-      return "paper"
     case 2:
+      return "paper"
+    case 3: 
       return "scissors"
     default:
-      return "error"
+      return "Something went wrong"
   }
 }
-var computer = getComputerChoice()
 
-func determineWinner(_ userChoice: String, _ compChoice: String) -> String {
+func determineWinner(_ userChoice: String, _ computerChoice: String) -> String {
   var decision = "It's a tie"
+
   switch userChoice {
     case "rock":
-      if compChoice == "paper" {
-        decision = "Computer Won"
-  } else if compChoice == "scissors" {
-        decision = "user Won"
+      if computerChoice == "paper" {
+        decision = "The computer won"
+      }
+    case "paper":
+      if computerChoice == "scissors" {
+        decision = "The computer won"
+      }
+    case "scissors":
+      if computerChoice == "rock" {
+        decision = "The computer won"
+      }
+    default:
+      decision = "Invalid choice. Please choose either rock, paper, or scissors."
+  }
+  
+  if decision == "It's a tie" {
+    if userChoice != computerChoice {
+      decision = "The user won"
+    }
   }
 
-  case "paper":
-      if compChoice == "scissors" {
-        decision = "Computer Won"
-  } else if compChoice == "rock" {
-        decision = "user Won"
-  }  
-
-case "scissors":
-      if compChoice == "rock" {
-        decision = "Computer Won"
-  } else if compChoice == "paper" {
-        decision = "user Won"
-  }
-default:
-  print("Error")
-  }
-  return decision
+  return decision 
 }
-print(determineWinner(user, computer))
+
+
+let userChoice = getUserChoice(userInput: "ROCK")
+let compChoice = getComputerChoice()
+
+print("You threw \(userChoice)\nThe computer threw \(compChoice)\n\(determineWinner(userChoice, compChoice))")
+
