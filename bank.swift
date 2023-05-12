@@ -1,18 +1,27 @@
-/* You just returned from a trip to South America. The countries you visited were Colombia, Brazil, and Peru. You arrived back in your country with some foreign currencies from these three countries:
-Colombian Pesos
-Brazilian Reais
-Peruvian Soles
-Write a Swift program in PiggyBank.swift that converts the amount of each foreign currency and displays the total amount in USD.
-*/
+// Write your code below 🏦
+struct Bank {
+  private let password: String
+  private var balance: Double = 0.00
+  static let depositBonusRate: Double = 0.01
 
-var pesosArg: Double = 10765.40
-var reais: Double = 30.8
+  init (password: String) {
+    self.password = password
+  }
 
-var total: Double
+  private func isValid(_ enteredPassword: String) -> Bool {
+    if enteredPassword == self.password {
+      return true
+    } else {
+      return false
+    }
+  }
 
-let Peso = 0.00029
-let real = 0.21 
+  private func finalDepositWithBonus(fromInitialDeposit deposit: Double) -> Double {
+    let depositTotal = deposit + (Bank.depositBonusRate * deposit)
+    return depositTotal
+  }
 
-total = (reais * real) + (pesosArg * 0.00029)
-
-print("US Dollars $\(total)")
+  func makeDeposit(ofAmount depositAmount: Double) {
+    let depositWithBonus = finalDepositWithBonus(fromInitialDeposit: depositAmount)
+  }
+}
